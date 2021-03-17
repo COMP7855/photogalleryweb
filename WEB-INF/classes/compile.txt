@@ -1,1 +1,1 @@
-javac -classpath .;c:\tomcat\lib\servlet-api.jar GalleryServlet.java
+javac -classpath .;c:\tomcat\lib\servlet-api.jar;c:\tomcat\lib\cos.jar GalleryServlet.java
