@@ -14,7 +14,7 @@ public class GalleryServlet extends HttpServlet {
     "<body>\n"+
     "<h1>Photogallery app</h1>\n"+
     "<h2>Gallery view</h2>\n"+
-    "<img src=\"img_girl.jpg\" alt=\"Girl in a jacket\" width=\"500\" height=\"600\">\n"+
+    "<img src=\"images/a.jpg\" alt=\"a image\" width=\"830\" height=\"415\">\n"+
     "<p>Edit caption</p>\n"+
     "<button type=\"button\" onclick=\"alert('Right')\">Snap</button>\n"+
     "<p></p>\n"+
