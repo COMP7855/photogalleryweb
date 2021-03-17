@@ -3,16 +3,28 @@ import javax.servlet.*;
 import java.io.*;
 
 public class GalleryServlet extends HttpServlet {
-  private int mCount;
   
   public void doGet(HttpServletRequest request,
       HttpServletResponse response)
       throws ServletException, IOException {
-    String message = "Hits: " + ++mCount;
-
-    response.setContentType("text/plain");
-    response.setContentLength(message.length());
+    response.setContentType("text/html");
     PrintWriter out = response.getWriter();
-    out.println(message);
+    
+    out.println("<html>\n"+
+    "<body>\n"+
+    "<h1>Photogallery app</h1>\n"+
+    "<h2>Gallery view</h2>\n"+
+    "<img src=\"img_girl.jpg\" alt=\"Girl in a jacket\" width=\"500\" height=\"600\">\n"+
+    "<p>Edit caption</p>\n"+
+    "<button type=\"button\" onclick=\"alert('Right')\">Snap</button>\n"+
+    "<p></p>\n"+
+    "<button type=\"button\" onclick=\"alert('Left')\">Left</button>\n"+
+    "<button type=\"button\" onclick=\"alert('Right')\">Right</button>\n"+
+    "<p></p>\n"+
+    "<button type=\"button\" onclick=\"alert('Search')\">Search</button>\n"+
+    "<p>Time textbox</p>\n"+
+    "<p>Location textbox</p>\n"+
+    "</body>\n"+
+    "</html>");
   }
 }
