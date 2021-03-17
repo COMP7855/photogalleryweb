@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Photogallery app</h1>
+<h2>Search view</h2>
+
+<form action="/action_page.php" method="get">
+  
+  <label for="start_time">Start time:</label>
+  <input type="text" id="start_time" name="start_time"><br><br>
+  
+  <label for="end_time">End time:</label>
+  <input type="text" id="end_time" name="end_time"><br><br>
+  
+  <label for="lat_min">Minimum latitude:</label>
+  <input type="text" id="lat_min" name="lat_min"><br><br>
+  
+  <label for="lat_max">Maximum latitude:</label>
+  <input type="text" id="lat_max" name="lat_max"><br><br>
+  
+  <label for="long_min">Minimum longitude:</label>
+  <input type="text" id="long_min" name="long_min"><br><br>
+  
+  <label for="long_max">Maximum longitude:</label>
+  <input type="text" id="long_max" name="long_max"><br><br>
+  
+  <label for="keywords">Keywords:</label>
+  <input type="text" id="keywords" name="keywords"><br><br>
+  
+  <input type="submit" value="Submit">
+  <p></p>
+  
+  <button type="button" onclick="alert('Okay')">Okay</button>
+<button type="button" onclick="window.location.href = 'http://localhost:8081/photogalleryweb/galleryview.html';"">Cancel</button>
+<p></p>
+  
+</form>
+
+ 
+</body>
+</html>
