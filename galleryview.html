@@ -2,31 +2,52 @@
 <html>
 <body>
 
-<h1>Photogallery app</h1>
-<h2>Gallery view</h2>
+  <h1>Photogallery app</h1>
+  <h2>Gallery view</h2>
 
-<img src="images/b.jpg" alt="b image" width="592" height="444"> </p>
+  <img id="ImageView" src="images/b.jpg" alt="b image" width="592" height="444"> </p>
 
-<div contenteditable="true">
-  This Caption can be added by the user.
-</div>
-<p></p>
+  <div contenteditable="true">
+    This Caption can be added by the user.
+  </div>
+  <p></p>
 
-<form action="/photogalleryweb/gallery" method= "POST" enctype="multipart/form-data">
-  Select a file: <input type="file" name="myFile"><br><br>
-  <input type="submit">
-</form>
+  <form action="/photogalleryweb/upload" method= "POST" enctype="multipart/form-data">
+    Select a file: <input type="file" name="myFile"><br><br>
+    <input type="submit">
+  </form>
+  <br>
 
-<p></p>
+  <button type="button" onclick="loadDoc()">Left</button>
+  <button type="button" onclick="loadDoc()">Right</button>
+  <br><br>
 
-<button type="button" onclick="alert('Left')">Left</button>
-<button type="button" onclick="alert('Right')">Right</button>
-<p></p>
+  <button type="button" onclick="window.location.href = 'http://localhost:8081/photogalleryweb/searchview.html';">Search</button>
 
-<button type="button" onclick="window.location.href = 'http://localhost:8081/photogalleryweb/searchview.html';">Search</button>
+  <p>Time textbox</p>
+  <p>Location textbox</p>
+  
+  <div id="demo">
+    <p>Empty List</p>
+  </div>
 
-<p>Time textbox</p>
-<p>Location textbox</p>
- 
+  <script>
+    function loadDoc() 
+    {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() 
+      {
+        if (this.readyState == 4 && this.status == 200) 
+        {
+          var photoList = this.responseText;
+          document.getElementById("demo").innerHTML = photoList;
+          document.getElementById("ImageView").src = "images/a.jpg";
+        }
+      };
+      xhttp.open("GET", "directory", true);
+      xhttp.send();
+    }
+  </script>
+
 </body>
 </html>
