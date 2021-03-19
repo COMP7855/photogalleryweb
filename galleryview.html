@@ -40,13 +40,22 @@
         if (this.readyState == 4 && this.status == 200) 
         {
           var photoList = this.responseText;
-          document.getElementById("demo").innerHTML = photoList;
+		  
+		  var photoArray = photoList.split(",");
+		  photoArray[0] = photoArray[0].substring(4);
+		  //photoArray.shift();
+		  
+          //document.getElementById("demo").innerHTML = photoList;
+		  document.getElementById("demo").innerHTML = photoArray[1];
+		  
           document.getElementById("ImageView").src = "images/a.jpg";
         }
       };
       xhttp.open("GET", "directory", true);
       xhttp.send();
     }
+	
+	
   </script>
 
 </body>

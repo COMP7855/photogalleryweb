@@ -9,15 +9,21 @@ public class DirServlet extends HttpServlet {
       out.println(getListing("C:/tomcat/webapps/photogalleryweb/images"));
   }
   private String getListing(String path) {
-     String dirList =  null;
-      File dir = new File(path);
-      String[] chld = dir.list();
+     String dirList =  null; //new string
+      File dir = new File(path); //new directory
+      String[] chld = dir.list(); //new array 
+	  
       for(int i = 0; i < chld.length; i++){
-         if ((new File(path+chld[i])).isDirectory())
-            dirList += "<li><button type=\"button\">"+chld[i]+"</button></li>";
-         else
-            dirList += "<li>"+chld[i]+"</li>";       
+         if (i == chld.length - 1)
+			dirList += chld[i];
+		else
+			dirList += chld[i]+ ",";
+            //dirList += "<li><button type=\"button\">"+chld[i]+"</button></li>";
+         //else
+            //dirList += chld[i] +"a";       
       }
-      return dirList;
+	  
+     return dirList;
+	  
   }
 }
