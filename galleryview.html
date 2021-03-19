@@ -5,7 +5,7 @@
   <h1>Photogallery app</h1>
   <h2>Gallery view</h2>
 
-  <img id="ImageView" src="images/b.jpg" alt="b image" width="592" height="444"> </p>
+  <img id="ImageView" src="images/a.jpg" alt="b image" width="592" height="444"> </p>
 
   <div contenteditable="true">
     This Caption can be added by the user.
@@ -18,20 +18,40 @@
   </form>
   <br>
 
-  <button type="button" onclick="loadDoc()">Left</button>
-  <button type="button" onclick="loadDoc()">Right</button>
+  <button type="button" onclick="prevButton()"">Left</button>
+  <button type="button" onclick="nextButton()"">Right</button>
   <br><br>
 
   <button type="button" onclick="window.location.href = 'http://localhost:8081/photogalleryweb/searchview.html';">Search</button>
+  <br>
 
   <p>Time textbox</p>
   <p>Location textbox</p>
   
+  <button type="button" onclick="loadDoc()">Update List of Photos</button>
+  
   <div id="demo">
-    <p>Empty List</p>
+    <p>Photo List</p>
+  </div>
+
+  <div id="index">
+    <p>Index</p>
+  </div>
+
+  <div id="currentPhoto">
+    <p>Current Photo</p>
+  </div>
+
+  <div id="stringLength">
+    <p>String Length</p>
   </div>
 
   <script>
+    var dummyPhotoList = ["a.jpg", "b.jpg", "index.jpg", "minetunnel2.jpg"];
+    index = 0;
+    var photoArray;
+    loadDoc();
+
     function loadDoc() 
     {
       var xhttp = new XMLHttpRequest();
@@ -40,22 +60,49 @@
         if (this.readyState == 4 && this.status == 200) 
         {
           var photoList = this.responseText;
-		  
-		  var photoArray = photoList.split(",");
-		  photoArray[0] = photoArray[0].substring(4);
-		  //photoArray.shift();
-		  
-          //document.getElementById("demo").innerHTML = photoList;
-		  document.getElementById("demo").innerHTML = photoArray[1];
-		  
+          photoArray = photoList.split(",");
+		      photoArray[0] = photoArray[0].substring(4);
+
+          document.getElementById("demo").innerHTML = photoArray;
           document.getElementById("ImageView").src = "images/a.jpg";
         }
       };
       xhttp.open("GET", "directory", true);
       xhttp.send();
     }
-	
-	
+
+    function prevButton()
+    {
+      if (index <= 0)
+      {
+        index = 0;
+      }
+      else
+      {
+        index--;
+      }
+      
+      document.getElementById("ImageView").src = "images/" + photoArray[index];
+      document.getElementById("index").innerHTML = index;
+      document.getElementById("currentPhoto").innerHTML = "images/" + photoArray[index];
+    }
+
+    function nextButton()
+    {
+      if (index >= photoArray.length -1)
+      {
+        index = photoArray.length -1;
+      }
+      else
+      {
+        index++;
+      }
+
+      document.getElementById("ImageView").src = "images/" + photoArray[index];
+      document.getElementById("index").innerHTML = index;
+      document.getElementById("currentPhoto").innerHTML = "images/" + photoArray[index];
+    }
+
   </script>
 
 </body>
