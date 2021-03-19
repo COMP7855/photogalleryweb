@@ -8,6 +8,9 @@ throws ServletException, IOException {
      response.setContentType("text/html");
      PrintWriter out = response.getWriter();
      MultipartRequest m = new MultipartRequest(request,"c:/tomcat/webapps/photogalleryweb/images");
-     out.print("successfully uploaded");
+     out.print("<p> Successfully uploaded </p> \n");
+     out.print("<form action=\"/photogalleryweb/galleryview.html\">\n");
+     out.print("<button type=\"submit\"> Okay</button>\n");
+     out.print("</form>");
    }
 }
