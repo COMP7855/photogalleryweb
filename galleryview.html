@@ -7,16 +7,16 @@
 
   <img id="ImageView" src="images/default.jpg" alt="b image" width="592" height="444"> </p>
 
-
+  <label for="OldCaption">Old Caption:</label><br> 
   <form action="/photogalleryweb/renamefile" method= "GET">
-    <label for="OldCaption">Old Caption:</label><br>
-    <input type="text" id="oldCaption" name="oldCaption" value="Old Caption"><br>
     <label for="NewCaption">New Caption:</label><br>
     <input type="text" id="newCaption" name="newCaption" value="New Caption"><br>
+	 <input type="hidden" id="oldCaption" name="oldCaption" value="a.jpg"><br>
     <input type="submit" value="Rename File">
   </form>
   <br>
-
+  
+  
   <form action="/photogalleryweb/upload" method= "POST" enctype="multipart/form-data">
     Select a file: <input type="file" name="myFile"><br>
     <input type="submit"value="Upload">
@@ -32,6 +32,7 @@
   <br>
 
   <br>
+  
   Time:
   <div id="timeText"> Time textbox </div>
   Location:
@@ -122,6 +123,7 @@
       photoArrayFiltered = photoArray.filter(checkKeywords);
       document.getElementById("filteredListText").innerHTML = photoArrayFiltered;
     }
+	
 
     function prevButton()
     {
@@ -159,14 +161,25 @@
 
     function updateCaption()
     {
-      photoAttributes = photoArray[index].split("_");
-      photoCaption = photoAttributes[0];
-      photoTime = photoAttributes[1];
-      photoLocation = photoAttributes[2];
+	  //var xhttpu = new XMLHttpRequest();
+      //xhttp.onreadystatechange = function() 
+	  //{
+	    photoAttributes = photoArray[index].split("_");
+		photoCaption = photoAttributes[0];
+		photoTime = photoAttributes[1];
+		photoLocation = photoAttributes[2];
 
-      document.getElementById("oldCaption").value = photoCaption;
-      document.getElementById("timeText").innerHTML = photoTime;
-      document.getElementById("locationText").innerHTML = photoLocation;
+		document.getElementById("oldCaption").value = photoArray[index];
+		document.getElementById("timeText").innerHTML = photoTime;
+		document.getElementById("locationText").innerHTML = photoLocation;
+	  //};
+	  //xhttpu.open("POST", "renamefile", true);
+	  //xhttpu.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	  //xhttpu.send("oldcap=" + photoCaption + ".jpg" + "&newcap=" + document.getElementById("newCaption").value); 
+      //xhttp.send();
+      //updateCaption();
+	  
+
     }
 
   </script>
