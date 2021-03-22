@@ -1,3 +1,5 @@
 javac -classpath .;c:\tomcat\lib\servlet-api.jar;c:\tomcat\lib\cos.jar UploadServlet.java
 
 javac -classpath .;c:\tomcat\lib\servlet-api.jar DirServlet.java
+
+javac -classpath .;c:\tomcat\lib\servlet-api.jar RenameServlet.java
