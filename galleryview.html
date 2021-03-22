@@ -5,49 +5,60 @@
   <h1>Photogallery app</h1>
   <h2>Gallery view</h2>
 
-  <img id="ImageView" src="images/a.jpg" alt="b image" width="592" height="444"> </p>
+  <img id="ImageView" src="images/default.jpg" alt="b image" width="592" height="444"> </p>
 
-  <div contenteditable="true">
-    This Caption can be added by the user.
-  </div>
-  <p></p>
+
+  <form action="/photogalleryweb/renamefile" method= "GET">
+    <label for="Caption">Caption:</label><br>
+    <input type="text" id="Caption" name="Caption" value="Previous Caption"><br>
+    <input type="submit" value="Rename File">
+  </form>
+  <br>
 
   <form action="/photogalleryweb/upload" method= "POST" enctype="multipart/form-data">
-    Select a file: <input type="file" name="myFile"><br><br>
-    <input type="submit">
+    Select a file: <input type="file" name="myFile"><br>
+    <input type="submit"value="Upload">
   </form>
   <br>
 
   <button type="button" onclick="prevButton()"">Left</button>
   <button type="button" onclick="nextButton()"">Right</button>
-  <br><br>
+  <br>
 
+  <br>
   <button type="button" onclick="window.location.href = 'http://localhost:8081/photogalleryweb/searchview.html';">Search</button>
   <br>
 
-  <p>Time textbox</p>
-  <p>Location textbox</p>
+  <br>
+  Time:
+  <div id="timeText"> Time textbox </div>
+  Location:
+  <div id="locationText"> Location textbox </div>
   
+  <br>
   <button type="button" onclick="loadDoc()">Update List of Photos</button>
-  
-  <div id="demo">
-    <p>Photo List</p>
-  </div>
+  <br>
 
+  <br>
+  Photo List:
+  <div id="photoListText">
+    Photo List
+  </div>
+  <br>
+
+  Index:
   <div id="index">
-    <p>Index</p>
+    Index
   </div>
+  <br>
 
+  Current Photo:
   <div id="currentPhoto">
-    <p>Current Photo</p>
+    Current Photo
   </div>
-
-  <div id="stringLength">
-    <p>String Length</p>
-  </div>
+  <br>
 
   <script>
-    var dummyPhotoList = ["a.jpg", "b.jpg", "index.jpg", "minetunnel2.jpg"];
     index = 0;
     var photoArray;
     loadDoc();
@@ -63,13 +74,13 @@
           photoArray = photoList.split(",");
 		      photoArray[0] = photoArray[0].substring(4);
 
-          document.getElementById("demo").innerHTML = photoArray;
-          document.getElementById("ImageView").src = "images/a.jpg";
-		  index = 0;
+          document.getElementById("photoListText").innerHTML = photoArray;
+          document.getElementById("ImageView").src = "images/" + photoArray[index];
         }
       };
       xhttp.open("GET", "directory", true);
       xhttp.send();
+      updateCaption();
     }
 
     function prevButton()
@@ -86,6 +97,7 @@
       document.getElementById("ImageView").src = "images/" + photoArray[index];
       document.getElementById("index").innerHTML = index;
       document.getElementById("currentPhoto").innerHTML = "images/" + photoArray[index];
+      updateCaption();
     }
 
     function nextButton()
@@ -102,6 +114,19 @@
       document.getElementById("ImageView").src = "images/" + photoArray[index];
       document.getElementById("index").innerHTML = index;
       document.getElementById("currentPhoto").innerHTML = "images/" + photoArray[index];
+      updateCaption();
+    }
+
+    function updateCaption()
+    {
+      photoAttributes = photoArray[index].split("_");
+      photoCaption = photoAttributes[0];
+      photoTime = photoAttributes[1];
+      photoLocation = photoAttributes[2];
+
+      document.getElementById("Caption").value = photoCaption;
+      document.getElementById("timeText").innerHTML = photoTime;
+      document.getElementById("locationText").innerHTML = photoLocation;
     }
 
   </script>
