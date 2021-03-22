@@ -9,8 +9,10 @@
 
 
   <form action="/photogalleryweb/renamefile" method= "GET">
-    <label for="Caption">Caption:</label><br>
-    <input type="text" id="Caption" name="Caption" value="Previous Caption"><br>
+    <label for="OldCaption">Old Caption:</label><br>
+    <input type="text" id="oldCaption" name="oldCaption" value="Old Caption"><br>
+    <label for="NewCaption">New Caption:</label><br>
+    <input type="text" id="newCaption" name="newCaption" value="New Caption"><br>
     <input type="submit" value="Rename File">
   </form>
   <br>
@@ -124,7 +126,7 @@
       photoTime = photoAttributes[1];
       photoLocation = photoAttributes[2];
 
-      document.getElementById("Caption").value = photoCaption;
+      document.getElementById("oldCaption").value = photoCaption;
       document.getElementById("timeText").innerHTML = photoTime;
       document.getElementById("locationText").innerHTML = photoLocation;
     }
