@@ -26,4 +26,14 @@
     <url-pattern>/upload</url-pattern>
   </servlet-mapping>
 
+    <servlet>
+    <servlet-name>renamefile</servlet-name>
+    <servlet-class>RenameServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>renamefile</servlet-name>
+    <url-pattern>/renamefile</url-pattern>
+  </servlet-mapping>
+
 </web-app>

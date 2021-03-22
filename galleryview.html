@@ -12,9 +12,14 @@
   </div>
   <p></p>
 
+  <form action="/photogalleryweb/renamefile" method= "GET">
+    <input type="submit" value="Rename File">
+  </form>
+  <br>
+
   <form action="/photogalleryweb/upload" method= "POST" enctype="multipart/form-data">
     Select a file: <input type="file" name="myFile"><br><br>
-    <input type="submit">
+    <input type="submit"value="Upload">
   </form>
   <br>
 
@@ -47,7 +52,6 @@
   </div>
 
   <script>
-    var dummyPhotoList = ["a.jpg", "b.jpg", "index.jpg", "minetunnel2.jpg"];
     index = 0;
     var photoArray;
     loadDoc();
@@ -101,6 +105,12 @@
       document.getElementById("ImageView").src = "images/" + photoArray[index];
       document.getElementById("index").innerHTML = index;
       document.getElementById("currentPhoto").innerHTML = "images/" + photoArray[index];
+    }
+
+    function renameFile()
+    {
+      
+      const myNewFile = new File([myFile], 'new_name.png', {type: myFile.type});
     }
 
   </script>
