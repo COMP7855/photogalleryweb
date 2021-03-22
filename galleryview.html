@@ -23,17 +23,22 @@
 
   <button type="button" onclick="prevButton()"">Left</button>
   <button type="button" onclick="nextButton()"">Right</button>
-  <br><br>
+  <br>
 
+  <br>
   <button type="button" onclick="window.location.href = 'http://localhost:8081/photogalleryweb/searchview.html';">Search</button>
   <br>
 
-  <p>Time textbox</p>
-  <p>Location textbox</p>
+  <br>
+  Time:
+  <div id="timeText"> Time textbox </div>
+  Location:
+  <div id="locationText"> Location textbox </div>
   
+  <br>
   <button type="button" onclick="loadDoc()">Update List of Photos</button>
   
-  <div id="demo">
+  <div id="photoListText">
     <p>Photo List</p>
   </div>
 
@@ -43,10 +48,6 @@
 
   <div id="currentPhoto">
     <p>Current Photo</p>
-  </div>
-
-  <div id="stringLength">
-    <p>String Length</p>
   </div>
 
   <script>
@@ -65,12 +66,13 @@
           photoArray = photoList.split(",");
 		      photoArray[0] = photoArray[0].substring(4);
 
-          document.getElementById("demo").innerHTML = photoArray;
+          document.getElementById("photoListText").innerHTML = photoArray;
           document.getElementById("ImageView").src = "images/a.jpg";
         }
       };
       xhttp.open("GET", "directory", true);
       xhttp.send();
+      updateCaption();
     }
 
     function prevButton()
@@ -87,6 +89,7 @@
       document.getElementById("ImageView").src = "images/" + photoArray[index];
       document.getElementById("index").innerHTML = index;
       document.getElementById("currentPhoto").innerHTML = "images/" + photoArray[index];
+      updateCaption();
     }
 
     function nextButton()
@@ -103,6 +106,19 @@
       document.getElementById("ImageView").src = "images/" + photoArray[index];
       document.getElementById("index").innerHTML = index;
       document.getElementById("currentPhoto").innerHTML = "images/" + photoArray[index];
+      updateCaption();
+    }
+
+    function updateCaption()
+    {
+      photoAttributes = photoArray[index].split("_");
+      photoCaption = photoAttributes[0];
+      photoTime = photoAttributes[1];
+      photoLocation = photoAttributes[2];
+
+      document.getElementById("Caption").value = photoCaption;
+      document.getElementById("timeText").innerHTML = photoTime;
+      document.getElementById("locationText").innerHTML = photoLocation;
     }
 
   </script>
