@@ -48,6 +48,18 @@
   </div>
   <br>
 
+  Filtered list
+  <div id="filteredListText">
+    Current Photo
+  </div>
+  <br>
+
+  Keywords:
+  <div id="keywordsText">
+    Keywords
+  </div>
+  <br>
+
   Index:
   <div id="index">
     Index
@@ -63,7 +75,9 @@
   <script>
     index = 0;
     var photoArray;
+    var photoArrayFiltered;
     loadDoc();
+    
 
     function loadDoc() 
     {
@@ -83,6 +97,23 @@
       xhttp.open("GET", "directory", true);
       xhttp.send();
       updateCaption();
+      filterList();
+    }
+
+    function checkKeywords(photoName) 
+    {
+      var url = new URL(window.location.href);
+      keywords = url.searchParams.get("keywords");
+      document.getElementById("keywordsText").innerHTML = keywords;
+      
+      var containsKeywords = photoName.includes(keywords);
+      return containsKeywords;
+    }
+
+    function filterList()
+    {
+      photoArrayFiltered = photoArray.filter(checkKeywords);
+      document.getElementById("filteredListText").innerHTML = photoArrayFiltered;
     }
 
     function prevButton()
@@ -96,26 +127,26 @@
         index--;
       }
       
-      document.getElementById("ImageView").src = "images/" + photoArray[index];
+      document.getElementById("ImageView").src = "images/" + photoArrayFiltered[index];
       document.getElementById("index").innerHTML = index;
-      document.getElementById("currentPhoto").innerHTML = "images/" + photoArray[index];
+      document.getElementById("currentPhoto").innerHTML = "images/" + photoArrayFiltered[index];
       updateCaption();
     }
 
     function nextButton()
     {
-      if (index >= photoArray.length -1)
+      if (index >= photoArrayFiltered.length -1)
       {
-        index = photoArray.length -1;
+        index = photoArrayFiltered.length -1;
       }
       else
       {
         index++;
       }
 
-      document.getElementById("ImageView").src = "images/" + photoArray[index];
+      document.getElementById("ImageView").src = "images/" + photoArrayFiltered[index];
       document.getElementById("index").innerHTML = index;
-      document.getElementById("currentPhoto").innerHTML = "images/" + photoArray[index];
+      document.getElementById("currentPhoto").innerHTML = "images/" + photoArrayFiltered[index];
       updateCaption();
     }
 
@@ -131,6 +162,7 @@
       document.getElementById("locationText").innerHTML = photoLocation;
     }
 
+    window.onload = loadDoc;
   </script>
 
 </body>
