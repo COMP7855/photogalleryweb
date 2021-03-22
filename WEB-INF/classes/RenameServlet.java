@@ -6,7 +6,7 @@ public class RenameServlet extends HttpServlet {
       throws ServletException, IOException {
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();
-      if(renameFile("C:/tomcat/webapps/photogalleryweb/images/", "a.jpg", "yoda.jpg"))
+      if(renameFile("C:/tomcat/webapps/photogalleryweb/images/", "a.jpg", request.getParameter("Caption")))
       {
          out.println("File rename successful");
       }
@@ -25,7 +25,7 @@ public class RenameServlet extends HttpServlet {
       File file = new File(path + oldName);
 
       // File (or directory) with new name
-      File file2 = new File(path + newName);
+      File file2 = new File(path + newName + ".jpg");
 
       if (file2.exists())
       {

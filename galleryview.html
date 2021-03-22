@@ -7,12 +7,10 @@
 
   <img id="ImageView" src="images/a.jpg" alt="b image" width="592" height="444"> </p>
 
-  <div contenteditable="true">
-    This Caption can be added by the user.
-  </div>
-  <p></p>
 
   <form action="/photogalleryweb/renamefile" method= "GET">
+    <label for="Caption">Caption:</label><br>
+    <input type="text" id="Caption" name="Caption" value="Previous Caption"><br>
     <input type="submit" value="Rename File">
   </form>
   <br>
@@ -105,12 +103,6 @@
       document.getElementById("ImageView").src = "images/" + photoArray[index];
       document.getElementById("index").innerHTML = index;
       document.getElementById("currentPhoto").innerHTML = "images/" + photoArray[index];
-    }
-
-    function renameFile()
-    {
-      
-      const myNewFile = new File([myFile], 'new_name.png', {type: myFile.type});
     }
 
   </script>
