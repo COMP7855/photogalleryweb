@@ -5,7 +5,7 @@
   <h1>Photogallery app</h1>
   <h2>Gallery view</h2>
 
-  <img id="ImageView" src="images/a.jpg" alt="b image" width="592" height="444"> </p>
+  <img id="ImageView" src="images/default.jpg" alt="b image" width="592" height="444"> </p>
 
 
   <form action="/photogalleryweb/renamefile" method= "GET">
@@ -75,7 +75,7 @@
 		      photoArray[0] = photoArray[0].substring(4);
 
           document.getElementById("photoListText").innerHTML = photoArray;
-          document.getElementById("ImageView").src = "images/a.jpg";
+          document.getElementById("ImageView").src = "images/" + photoArray[index];
         }
       };
       xhttp.open("GET", "directory", true);
