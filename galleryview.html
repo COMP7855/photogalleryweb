@@ -60,6 +60,18 @@
   </div>
   <br>
 
+  Start Time:
+  <div id="startTimeText">
+    Start Time
+  </div>
+  <br>
+
+  End Time:
+  <div id="endTimeText">
+    End Time
+  </div>
+  <br>
+
   Index:
   <div id="index">
     Index
@@ -117,9 +129,36 @@
       return containsKeywords;
     }
 
+    function checkTime(photoName) 
+    {
+      var url = new URL(window.location.href);
+      start_time_str = url.searchParams.get("start_time");
+      end_time_str = url.searchParams.get("end_time");
+      
+      start_time = new Date(start_time_str);
+      end_time = new Date(end_time_str);
+
+      document.getElementById("startTimeText").innerHTML = start_time;
+      document.getElementById("endTimeText").innerHTML = end_time;
+
+      photoAttributes = photoName.split("_");
+      photoTime = photoAttributes[1];
+
+      if(start_time_str != null && end_time_str != null)
+      {
+        var withinStartEndTime = ((photoTime > start_time) && (photoTime < end_time));
+      }
+      else
+      {
+        var withinStartEndTime = true;
+      }
+      return withinStartEndTime;
+    }
+
     function filterList()
     {
       photoArrayFiltered = photoArray.filter(checkKeywords);
+      photoArrayFiltered = photoArrayFiltered.filter(checkTime);
       document.getElementById("filteredListText").innerHTML = photoArrayFiltered;
     }
 
@@ -161,7 +200,7 @@
     {
       photoAttributes = photoArray[index].split("_");
       photoCaption = photoAttributes[0];
-      photoTime = photoAttributes[1];
+      photoTime = new Date(photoAttributes[1]);
       photoLocation = photoAttributes[2];
 
       document.getElementById("oldCaption").value = photoCaption;
