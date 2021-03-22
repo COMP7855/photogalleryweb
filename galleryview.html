@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<body>
+<body onload="loadDoc()">
 
   <h1>Photogallery app</h1>
   <h2>Gallery view</h2>
@@ -146,7 +146,7 @@
       photoAttributes = photoName.split("_");
       photoTime = new Date(photoAttributes[1]);
 
-      if(start_time_str != null && end_time_str != null)
+      if(start_time_str.length >= 1 && end_time_str.length >= 1)
       {
         var withinStartEndTime = ((photoTime > start_time) && (photoTime < end_time));
       }
