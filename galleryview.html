@@ -106,7 +106,14 @@
       keywords = url.searchParams.get("keywords");
       document.getElementById("keywordsText").innerHTML = keywords;
       
-      var containsKeywords = photoName.includes(keywords);
+      if(keywords != null)
+      {
+        var containsKeywords = photoName.includes(keywords);
+      }
+      else
+      {
+        var containsKeywords = true;
+      }
       return containsKeywords;
     }
 
