@@ -29,21 +29,29 @@ function loadDoc()
 
 function filterList()
 {
+    // get search parameters
     var url = new URL(window.location.href);
     keywords = url.searchParams.get("keywords");
-    start_time = new Date(url.searchParams.get("start_time"));
-    end_time = new Date (url.searchParams.get("end_time"));
+    start_time_str = url.searchParams.get("start_time");
+    end_time_str = url.searchParams.get("end_time");
     searchLocation = url.searchParams.get("search_location");
 
+    // convert time strings to dates
+    if(start_time_str != null) start_time = new Date(start_time_str);
+    if(end_time_str != null) end_time = new Date(end_time_str);
+
+    // print search parameters to screen
     document.getElementById("keywordsText").innerHTML = keywords;
-    document.getElementById("startTimeText").innerHTML = start_time;
-    document.getElementById("endTimeText").innerHTML = end_time;
+    document.getElementById("startTimeText").innerHTML = start_time_str;
+    document.getElementById("endTimeText").innerHTML = end_time_str;
     document.getElementById("searchLocationText").innerHTML = searchLocation;
     
-    photoArrayFiltered = photoArray.filter(checkKeywords, keywords);
-    photoArrayFiltered = photoArrayFiltered.filter(checkStartTime, start_time);
-    photoArrayFiltered = photoArrayFiltered.filter(checkEndTime, end_time);
-    photoArrayFiltered = photoArrayFiltered.filter(checkLocation, searchLocation);
+    // create filtered list based on search parameters
+    photoArrayFiltered = photoArray.slice(0); // copy array
+    if (keywords != null) {photoArrayFiltered = photoArrayFiltered.filter(checkKeywords, keywords);}
+    if (start_time_str != null) {photoArrayFiltered = photoArrayFiltered.filter(checkStartTime, start_time);}
+    if (end_time_str != null) {photoArrayFiltered = photoArrayFiltered.filter(checkEndTime, end_time);}
+    if (searchLocation != null) {photoArrayFiltered = photoArrayFiltered.filter(checkLocation, searchLocation);}
     document.getElementById("filteredListText").innerHTML = photoArrayFiltered;
 }
 
