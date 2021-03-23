@@ -1,6 +1,7 @@
 import javax.servlet.http.*;
 import javax.servlet.*;
 import java.io.*;
+import java.util.Arrays;
 public class RenameServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -23,6 +24,21 @@ public class RenameServlet extends HttpServlet {
      
 	 String[] photoAttributes = oldName.split("_");
 	 
+	 if(photoAttributes.length == 1)
+	 {
+		photoAttributes = Arrays.copyOf(photoAttributes, photoAttributes.length+2);
+		 photoAttributes[1] = "unknown date";
+		 photoAttributes[2] = "unknown location";
+		 
+	 }
+	 else if(photoAttributes.length == 2)
+	 {
+		 
+		photoAttributes = Arrays.copyOf(photoAttributes, photoAttributes.length+1);
+		photoAttributes[2] = "unknown location";
+	 }
+	 
+		 
      // File (or directory) with old name
       File file = new File(path + oldName);
 
