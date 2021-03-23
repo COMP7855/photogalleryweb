@@ -1,25 +1,18 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< Updated upstream
 
 <body onload="updateCaption()">
->>>>>>> Stashed changes
 
   <h1>Photogallery app</h1>
   <h2>Gallery view</h2>
- 
 
   <img id="ImageView" src="images/default.jpg" alt="b image" width="592" height="444"> </p>
-
-<<<<<<< Updated upstream
-
   
   <br>
   Current Photo
   <div id="currentCaption"> Current Caption</div>
   <br>
-  
->>>>>>> Stashed changes
+
   <form action="/photogalleryweb/renamefile" method= "GET">
     <label for="OldCaption">Old Caption:</label><br>
     <input type="text" id="oldCaption" name="oldCaption" value="Old Caption"><br>
@@ -212,19 +205,15 @@
 
     function updateCaption()
     {
-<<<<<<< Updated upstream
+      photoAttributes = photoArrayFiltered[index].split("_");
+      photoCaption = photoAttributes[0];
+      photoTime = photoAttributes[1];
+      photoLocation = photoAttributes[2];
 
-
-	    photoAttributes = photoArray[index].split("_");
-		photoCaption = photoAttributes[0];
-		photoTime = photoAttributes[1];
-		photoLocation = photoAttributes[2];
-
-		document.getElementById("oldCaption").value = photoArray[index];
-		document.getElementById("timeText").innerHTML = photoTime;
-		document.getElementById("locationText").innerHTML = photoLocation;
-		document.getElementById("currentCaption").innerHTML = photoCaption;
->>>>>>> Stashed changes
+      document.getElementById("oldCaption").value = photoArray[index];
+      document.getElementById("timeText").innerHTML = photoTime;
+      document.getElementById("locationText").innerHTML = photoLocation;
+      document.getElementById("currentCaption").innerHTML = photoCaption;
     }
 
   </script>
