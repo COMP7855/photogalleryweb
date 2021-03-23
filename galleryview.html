@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<body onload="updateCaption()">
+<body onload="loadDoc()">
 
   <h1>Photogallery app</h1>
   <h2>Gallery view</h2>
@@ -14,8 +14,7 @@
   <br>
 
   <form action="/photogalleryweb/renamefile" method= "GET">
-    <label for="OldCaption">Old Caption:</label><br>
-    <input type="text" id="oldCaption" name="oldCaption" value="Old Caption"><br>
+    <input type="hidden" id="oldCaption" name="oldCaption" value="Old Caption">
     <label for="NewCaption">New Caption:</label><br>
     <input type="text" id="newCaption" name="newCaption" value="New Caption"><br>
     <input type="submit" value="Rename File">
