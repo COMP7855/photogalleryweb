@@ -29,8 +29,20 @@ function loadDoc()
 
 function filterList()
 {
+    var url = new URL(window.location.href);
+    keywords = url.searchParams.get("keywords");
+    start_time_str = url.searchParams.get("start_time");
+    end_time_str = url.searchParams.get("end_time");
+    searchLocation = url.searchParams.get("search_location");
+
+    document.getElementById("keywordsText").innerHTML = keywords;
+    document.getElementById("startTimeText").innerHTML = start_time_str;
+    document.getElementById("endTimeText").innerHTML = end_time_str;
+    document.getElementById("searchLocationText").innerHTML = searchLocation;
+    
     photoArrayFiltered = photoArray.filter(checkKeywords);
     photoArrayFiltered = photoArrayFiltered.filter(checkTime);
+    photoArrayFiltered = photoArrayFiltered.filter(checkLocation);
     document.getElementById("filteredListText").innerHTML = photoArrayFiltered;
 }
 
@@ -39,7 +51,7 @@ function checkKeywords(photoName)
 {
     var url = new URL(window.location.href);
     keywords = url.searchParams.get("keywords");
-    document.getElementById("keywordsText").innerHTML = keywords;
+    //document.getElementById("keywordsText").innerHTML = keywords;
     
     if(keywords != null)
     {
@@ -61,8 +73,8 @@ function checkTime(photoName)
     start_time = new Date(start_time_str);
     end_time = new Date(end_time_str);
 
-    document.getElementById("startTimeText").innerHTML = start_time;
-    document.getElementById("endTimeText").innerHTML = end_time;
+    //document.getElementById("startTimeText").innerHTML = start_time;
+    //document.getElementById("endTimeText").innerHTML = end_time;
 
     photoAttributes = photoName.split("_");
     photoTime = new Date(photoAttributes[1]);
@@ -80,6 +92,26 @@ function checkTime(photoName)
         var withinStartEndTime = true;
     }
     return withinStartEndTime;
+}
+
+function checkLocation(photoName) 
+{
+    var url = new URL(window.location.href);
+    searchLocation = url.searchParams.get("search_location");
+    //document.getElementById("searchLocationText").innerHTML = searchLocation;
+
+    photoAttributes = photoName.split("_");
+    photoLocation = photoAttributes[2];
+
+    if(searchLocation != null)
+    {
+        var containsLocation = photoLocation.includes(searchLocation);
+    }
+    else
+    {
+        var containsLocation = true;
+    }
+    return containsLocation;
 }
 
 function prevButton()
