@@ -17,18 +17,23 @@ function loadDoc()
             var photoList = this.responseText;
             photoArray = photoList.split(",");
             photoArray[0] = photoArray[0].substring(4);
-
             document.getElementById("photoListText").innerHTML = photoArray;
-            
+            filterList();
+            document.getElementById("ImageView").src = "images/" + photoArrayFiltered[index];
+            updateCaption();
         }
     };
     xhttp.open("GET", "directory", true);
     xhttp.send();
-    
-    filterList();
-    updateCaption();
-    document.getElementById("ImageView").src = "images/" + photoArrayFiltered[index];
 }
+
+function filterList()
+{
+    photoArrayFiltered = photoArray.filter(checkKeywords);
+    photoArrayFiltered = photoArrayFiltered.filter(checkTime);
+    document.getElementById("filteredListText").innerHTML = photoArrayFiltered;
+}
+
 
 function checkKeywords(photoName) 
 {
@@ -75,13 +80,6 @@ function checkTime(photoName)
         var withinStartEndTime = true;
     }
     return withinStartEndTime;
-}
-
-function filterList()
-{
-    photoArrayFiltered = photoArray.filter(checkKeywords);
-    photoArrayFiltered = photoArrayFiltered.filter(checkTime);
-    document.getElementById("filteredListText").innerHTML = photoArrayFiltered;
 }
 
 function prevButton()
