@@ -31,81 +31,76 @@ function filterList()
 {
     var url = new URL(window.location.href);
     keywords = url.searchParams.get("keywords");
-    start_time_str = url.searchParams.get("start_time");
-    end_time_str = url.searchParams.get("end_time");
+    start_time = new Date(url.searchParams.get("start_time"));
+    end_time = new Date (url.searchParams.get("end_time"));
     searchLocation = url.searchParams.get("search_location");
 
     document.getElementById("keywordsText").innerHTML = keywords;
-    document.getElementById("startTimeText").innerHTML = start_time_str;
-    document.getElementById("endTimeText").innerHTML = end_time_str;
+    document.getElementById("startTimeText").innerHTML = start_time;
+    document.getElementById("endTimeText").innerHTML = end_time;
     document.getElementById("searchLocationText").innerHTML = searchLocation;
     
-    photoArrayFiltered = photoArray.filter(checkKeywords);
-    photoArrayFiltered = photoArrayFiltered.filter(checkTime);
-    photoArrayFiltered = photoArrayFiltered.filter(checkLocation);
+    photoArrayFiltered = photoArray.filter(checkKeywords, keywords);
+    photoArrayFiltered = photoArrayFiltered.filter(checkStartTime, start_time);
+    photoArrayFiltered = photoArrayFiltered.filter(checkEndTime, end_time);
+    photoArrayFiltered = photoArrayFiltered.filter(checkLocation, searchLocation);
     document.getElementById("filteredListText").innerHTML = photoArrayFiltered;
 }
 
 
 function checkKeywords(photoName) 
 {
-    var url = new URL(window.location.href);
-    keywords = url.searchParams.get("keywords");
-    //document.getElementById("keywordsText").innerHTML = keywords;
-    
-    if(keywords != null)
+    if(this != null)
     {
-    var containsKeywords = photoName.includes(keywords);
+        var containsKeywords = photoName.includes(this);
     }
     else
     {
-    var containsKeywords = true;
+        var containsKeywords = true;
     }
     return containsKeywords;
 }
 
-function checkTime(photoName) 
+function checkStartTime(photoName) 
 {
-    var url = new URL(window.location.href);
-    start_time_str = url.searchParams.get("start_time");
-    end_time_str = url.searchParams.get("end_time");
-    
-    start_time = new Date(start_time_str);
-    end_time = new Date(end_time_str);
-
-    //document.getElementById("startTimeText").innerHTML = start_time;
-    //document.getElementById("endTimeText").innerHTML = end_time;
-
     photoAttributes = photoName.split("_");
     photoTime = new Date(photoAttributes[1]);
-
-    if (start_time_str == null || end_time_str == null)
+    
+    if (!isNaN(this.getTime())) // if valid date
     {
-        var withinStartEndTime = true;
-    } 
-    else if (start_time_str.length >= 1 && end_time_str.length >= 1)
-    {
-        var withinStartEndTime = ((photoTime > start_time) && (photoTime < end_time));
+        var afterStartTime = (photoTime >= this);
     }
     else
     {
-        var withinStartEndTime = true;
+        var afterStartTime = true;
     }
-    return withinStartEndTime;
+    return afterStartTime;
+}
+
+function checkEndTime(photoName) 
+{
+    photoAttributes = photoName.split("_");
+    photoTime = new Date(photoAttributes[1]);
+
+    if (!isNaN(this.getTime())) // if valid date
+    {
+        var beforeEndTime = (photoTime <= this);
+    }
+    else
+    {
+        var beforeEndTime = true;
+    }
+    return beforeEndTime;
 }
 
 function checkLocation(photoName) 
 {
-    var url = new URL(window.location.href);
-    searchLocation = url.searchParams.get("search_location");
-    //document.getElementById("searchLocationText").innerHTML = searchLocation;
-
     photoAttributes = photoName.split("_");
     photoLocation = photoAttributes[2];
 
-    if(searchLocation != null)
+    if(this != null)
     {
-        var containsLocation = photoLocation.includes(searchLocation);
+        var containsLocation = photoLocation.includes(this);
     }
     else
     {
@@ -118,11 +113,11 @@ function prevButton()
 {
     if (index <= 0)
     {
-    index = 0;
+        index = 0;
     }
     else
     {
-    index--;
+        index--;
     }
     
     document.getElementById("ImageView").src = "images/" + photoArrayFiltered[index];
@@ -135,11 +130,11 @@ function nextButton()
 {
     if (index >= photoArrayFiltered.length -1)
     {
-    index = photoArrayFiltered.length -1;
+        index = photoArrayFiltered.length -1;
     }
     else
     {
-    index++;
+        index++;
     }
 
     document.getElementById("ImageView").src = "images/" + photoArrayFiltered[index];
