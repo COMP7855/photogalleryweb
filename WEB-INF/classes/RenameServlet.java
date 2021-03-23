@@ -15,6 +15,9 @@ public class RenameServlet extends HttpServlet {
       {
          out.println("File rename failed");
       }  
+      out.print("<form action=\"/photogalleryweb/galleryview.html\">\n");
+      out.print("<button type=\"submit\"> Okay</button>\n");
+      out.print("</form>");
   }
 
   private boolean renameFile(String path, String oldName, String newName) 
