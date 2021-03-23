@@ -6,216 +6,48 @@
   <h1>Photogallery app</h1>
   <h2>Gallery view</h2>
 
-  <img id="ImageView" src="images/default.jpg" alt="b image" width="592" height="444"> </p>
+  <img id="ImageView" src="images/default.jpg" alt="b image" width="592" height="444"> </p><br>
   
-  <br>
-  Current Photo
-  <div id="currentCaption"> Current Caption</div>
-  <br>
+  Current Photo:<div id="currentCaption"> Current Caption</div><br>
 
   <form action="/photogalleryweb/renamefile" method= "GET">
     <input type="hidden" id="oldCaption" name="oldCaption" value="Old Caption">
     <label for="NewCaption">New Caption:</label><br>
     <input type="text" id="newCaption" name="newCaption" value="New Caption"><br>
     <input type="submit" value="Rename File">
-  </form>
-  <br>
+  </form><br>
 
   <form action="/photogalleryweb/upload" method= "POST" enctype="multipart/form-data">
     Select a file: <input type="file" name="myFile"><br>
     <input type="submit"value="Upload">
-  </form>
-  <br>
+  </form><br>
 
   <button type="button" onclick="prevButton()"">Left</button>
-  <button type="button" onclick="nextButton()"">Right</button>
-  <br>
-
-  <br>
-  <button type="button" onclick="window.location.href = 'http://localhost:8081/photogalleryweb/searchview.html';">Search</button>
-  <br>
-
-  <br>
-  Time:
-  <div id="timeText"> Time textbox </div>
-  Location:
-  <div id="locationText"> Location textbox </div>
+  <button type="button" onclick="nextButton()"">Right</button><br><br>
   
-  <br>
-  <button type="button" onclick="loadDoc()">Update List of Photos</button>
-  <br>
+  <button type="button" onclick="window.location.href = 'http://localhost:8081/photogalleryweb/searchview.html';">Search</button><br><br>
+  
+  Time:<div id="timeText"> Time textbox </div><br>
 
-  <br>
-  Photo List:
-  <div id="photoListText">
-    Photo List
-  </div>
-  <br>
+  Location:<div id="locationText"> Location textbox </div><br>
+  
+  <button type="button" onclick="loadDoc()">Update List of Photos</button><br><br>
 
-  Filtered list
-  <div id="filteredListText">
-    Current Photo
-  </div>
-  <br>
+  Photo List: <div id="photoListText"> Photo List </div><br>
 
-  Keywords:
-  <div id="keywordsText">
-    Keywords
-  </div>
-  <br>
+  Filtered list: <div id="filteredListText"> Current Photo </div><br>
 
-  Start Time:
-  <div id="startTimeText">
-    Start Time
-  </div>
-  <br>
+  Keywords: <div id="keywordsText"> Keywords </div><br>
 
-  End Time:
-  <div id="endTimeText">
-    End Time
-  </div>
-  <br>
+  Start Time: <div id="startTimeText"> Start Time </div><br>
 
-  Index:
-  <div id="index">
-    Index
-  </div>
-  <br>
+  End Time:<div id="endTimeText"> End Time </div><br>
 
-  Current Photo:
-  <div id="currentPhoto">
-    Current Photo
-  </div>
-  <br>
+  Index:<div id="index">Index </div><br>
 
-  <script>
-    index = 0;
-    var photoArray;
-    var photoArrayFiltered;
-    loadDoc();
-    
+  Current Photo:<div id="currentPhoto">Current Photo</div><br>
 
-    function loadDoc() 
-    {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() 
-      {
-        if (this.readyState == 4 && this.status == 200) 
-        {
-          var photoList = this.responseText;
-          photoArray = photoList.split(",");
-		      photoArray[0] = photoArray[0].substring(4);
-
-          document.getElementById("photoListText").innerHTML = photoArray;
-          
-        }
-      };
-      xhttp.open("GET", "directory", true);
-      xhttp.send();
-      
-      filterList();
-      updateCaption();
-      document.getElementById("ImageView").src = "images/" + photoArrayFiltered[index];
-    }
-
-    function checkKeywords(photoName) 
-    {
-      var url = new URL(window.location.href);
-      keywords = url.searchParams.get("keywords");
-      document.getElementById("keywordsText").innerHTML = keywords;
-      
-      if(keywords != null)
-      {
-        var containsKeywords = photoName.includes(keywords);
-      }
-      else
-      {
-        var containsKeywords = true;
-      }
-      return containsKeywords;
-    }
-
-    function checkTime(photoName) 
-    {
-      var url = new URL(window.location.href);
-      start_time_str = url.searchParams.get("start_time");
-      end_time_str = url.searchParams.get("end_time");
-      
-      start_time = new Date(start_time_str);
-      end_time = new Date(end_time_str);
-
-      document.getElementById("startTimeText").innerHTML = start_time;
-      document.getElementById("endTimeText").innerHTML = end_time;
-
-      photoAttributes = photoName.split("_");
-      photoTime = new Date(photoAttributes[1]);
-
-      if(start_time_str.length >= 1 && end_time_str.length >= 1)
-      {
-        var withinStartEndTime = ((photoTime > start_time) && (photoTime < end_time));
-      }
-      else
-      {
-        var withinStartEndTime = true;
-      }
-      return withinStartEndTime;
-    }
-
-    function filterList()
-    {
-      photoArrayFiltered = photoArray.filter(checkKeywords);
-      photoArrayFiltered = photoArrayFiltered.filter(checkTime);
-      document.getElementById("filteredListText").innerHTML = photoArrayFiltered;
-    }
-
-    function prevButton()
-    {
-      if (index <= 0)
-      {
-        index = 0;
-      }
-      else
-      {
-        index--;
-      }
-      
-      document.getElementById("ImageView").src = "images/" + photoArrayFiltered[index];
-      document.getElementById("index").innerHTML = index;
-      document.getElementById("currentPhoto").innerHTML = "images/" + photoArrayFiltered[index];
-      updateCaption();
-    }
-
-    function nextButton()
-    {
-      if (index >= photoArrayFiltered.length -1)
-      {
-        index = photoArrayFiltered.length -1;
-      }
-      else
-      {
-        index++;
-      }
-
-      document.getElementById("ImageView").src = "images/" + photoArrayFiltered[index];
-      document.getElementById("index").innerHTML = index;
-      document.getElementById("currentPhoto").innerHTML = "images/" + photoArrayFiltered[index];
-      updateCaption();
-    }
-
-    function updateCaption()
-    {
-      photoAttributes = photoArrayFiltered[index].split("_");
-      photoCaption = photoAttributes[0];
-      photoTime = photoAttributes[1];
-      photoLocation = photoAttributes[2];
-
-      document.getElementById("oldCaption").value = photoArray[index];
-      document.getElementById("timeText").innerHTML = photoTime;
-      document.getElementById("locationText").innerHTML = photoLocation;
-      document.getElementById("currentCaption").innerHTML = photoCaption;
-    }
-
-  </script>
+  <script src="js/galleryScript.js"></script>
 
 </body>
 </html>
