@@ -8,18 +8,16 @@
 
   <img id="ImageView" src="images/default.jpg" alt="b image" width="592" height="444"> <br>
   
-  <b>Current Photo:</b><div id="currentCaption">Current Caption </div><br>
-
   <form action="/photogalleryweb/renamefile" method= "GET">
-    <input type="hidden" id="oldCaption" name="oldCaption" value="Old Caption">
-    <label for="NewCaption"><b>New Caption:</b></label><br>
+    <input type="hidden" id="oldFileName" name="oldFileName" value="Old File Name">
+    <label for="NewCaption"><b>Caption:</b></label><br>
     <input type="text" id="newCaption" name="newCaption" value="New Caption"><br>
+    <label for="newTime"><b>Time:</b></label><br>
+    <input type="text" id="newTime" name="newTime" value="New Time"><br>
+    <label for="newLocation"><b>Location:</b></label><br>
+    <input type="text" id="newLocation" name="newLocation" value="New Location"><br>
     <input type="submit" value="Rename File">
   </form><br>
-
-  <b>Time:</b><div id="timeText"> Time textbox </div><br>
-
-  <b>Location:</b><div id="locationText"> Location textbox </div><br>
 
   <form action="/photogalleryweb/upload" method= "POST" enctype="multipart/form-data">
     Select a file: <input type="file" name="myFile"><br>

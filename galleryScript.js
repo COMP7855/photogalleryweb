@@ -156,13 +156,15 @@ function nextButton()
 
 function updateCaption()
 {
+    // get current photo attributes
     photoAttributes = photoArrayFiltered[index].split("_");
     photoCaption = photoAttributes[0];
     photoTime = photoAttributes[1];
     photoLocation = photoAttributes[2];
-
-    document.getElementById("oldCaption").value = photoArrayFiltered[index];
-    document.getElementById("timeText").innerHTML = photoTime;
-    document.getElementById("locationText").innerHTML = photoLocation;
-    document.getElementById("currentCaption").innerHTML = photoCaption;
+    
+    // update page to display photo attributes
+    document.getElementById("oldFileName").value = photoArrayFiltered[index];
+    document.getElementById("newCaption").value = photoCaption;
+    document.getElementById("newTime").value = photoTime;
+    document.getElementById("newLocation").value = photoLocation;
 }

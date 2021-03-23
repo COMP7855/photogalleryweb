@@ -7,7 +7,13 @@ public class RenameServlet extends HttpServlet {
       throws ServletException, IOException {
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();
-      if(renameFile("C:/tomcat/webapps/photogalleryweb/images/", request.getParameter("oldCaption"), request.getParameter("newCaption")))
+      String filepath = "C:/tomcat/webapps/photogalleryweb/images/";
+      String oldFileName = request.getParameter("oldFileName");
+      String newCaption = request.getParameter("newCaption");
+      String newTime = request.getParameter("newTime");
+      String newLocation = request.getParameter("newLocation");
+
+      if(renameFile(filepath,oldFileName,newCaption,newTime,newLocation))
       {
          out.println("File rename successful");
       }
@@ -20,7 +26,7 @@ public class RenameServlet extends HttpServlet {
       out.print("</form>");
   }
 
-  private boolean renameFile(String path, String oldName, String newName) 
+  private boolean renameFile(String path, String oldName, String newName,String newTime, String newLocation) 
   {
      // variable to return for function success
      boolean success;
@@ -46,7 +52,7 @@ public class RenameServlet extends HttpServlet {
       File file = new File(path + oldName);
 
       // File (or directory) with new name
-      File file2 = new File(path + newName + "_" + photoAttributes[1] + "_" + photoAttributes[2] + "_" +".jpg");
+      File file2 = new File(path + newName + "_" + newTime + "_" + newLocation + "_" +".jpg");
 
       if (file2.exists())
       {
