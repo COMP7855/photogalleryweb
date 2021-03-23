@@ -1,22 +1,26 @@
-index = 0;
 var photoArray;
 var photoArrayFiltered;
-loadDoc();
+
+function onPageLoad()
+{
+    index = 0;
+    loadDoc();
+}
 
 function loadDoc() 
 {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() 
     {
-    if (this.readyState == 4 && this.status == 200) 
-    {
-        var photoList = this.responseText;
-        photoArray = photoList.split(",");
+        if (this.readyState == 4 && this.status == 200) 
+        {
+            var photoList = this.responseText;
+            photoArray = photoList.split(",");
             photoArray[0] = photoArray[0].substring(4);
 
-        document.getElementById("photoListText").innerHTML = photoArray;
-        
-    }
+            document.getElementById("photoListText").innerHTML = photoArray;
+            
+        }
     };
     xhttp.open("GET", "directory", true);
     xhttp.send();
@@ -58,13 +62,17 @@ function checkTime(photoName)
     photoAttributes = photoName.split("_");
     photoTime = new Date(photoAttributes[1]);
 
-    if(start_time_str.length >= 1 && end_time_str.length >= 1)
+    if (start_time_str == null || end_time_str == null)
     {
-    var withinStartEndTime = ((photoTime > start_time) && (photoTime < end_time));
+        var withinStartEndTime = true;
+    } 
+    else if (start_time_str.length >= 1 && end_time_str.length >= 1)
+    {
+        var withinStartEndTime = ((photoTime > start_time) && (photoTime < end_time));
     }
     else
     {
-    var withinStartEndTime = true;
+        var withinStartEndTime = true;
     }
     return withinStartEndTime;
 }
