@@ -123,7 +123,7 @@ function updateCaption()
     photoTime = photoAttributes[1];
     photoLocation = photoAttributes[2];
 
-    document.getElementById("oldCaption").value = photoArray[index];
+    document.getElementById("oldCaption").value = photoArrayFiltered[index];
     document.getElementById("timeText").innerHTML = photoTime;
     document.getElementById("locationText").innerHTML = photoLocation;
     document.getElementById("currentCaption").innerHTML = photoCaption;
